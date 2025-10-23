@@ -17,6 +17,7 @@ void BFS(unordered_map<string, vector<string>> &adj, string start, int numDays, 
     knowsRumor[start] = true;
     temp.push(make_pair(start, 0));
     
+    //while queue not empty, explore next person
     while(!temp.empty()){
         pair<string, int> current = temp.front();
         temp.pop();
@@ -24,13 +25,19 @@ void BFS(unordered_map<string, vector<string>> &adj, string start, int numDays, 
         string currPerson = current.first;
         int currDay = current.second;
 
+        //continue spreading rumor as long as current day doesn't exceed total number of days
         if(currDay < numDays){
             for(int i = 0; i < adj[currPerson].size(); i++){
+                //for each person, explore their connections
                 string nextTo = adj[currPerson][i];
+                //increases how many times they have heard rumor and set that they now know it to true
                 shareCount[nextTo]++;
                 knowsRumor[nextTo] = true;
+
                 if(shareCount[nextTo] > 0){
                     knowsRumor[nextTo] = true;
+                    //ensures connection is only added to queue once if they have reached their level of skeptism
+                    //can only start spreading the next day
                     if(shareCount[nextTo] == track[nextTo]){
                         temp.push(make_pair(nextTo, currDay + 1));
                     }
@@ -39,6 +46,8 @@ void BFS(unordered_map<string, vector<string>> &adj, string start, int numDays, 
         }
     }
 
+    //traverses through unordered map of who knows rumor
+    //excludes starting person from count
     int count = 0;
     for(auto it = knowsRumor.begin(); it != knowsRumor.end(); it++){
         if(it->first != start && it->second == true){
