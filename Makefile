@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -O2
 
-TARGET = grapevine
-SRC = grapevine.cpp
+TARGET = equivalences
+SRC = equivalences.cpp
 
 all: $(TARGET)
 
