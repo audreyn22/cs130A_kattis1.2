@@ -32,7 +32,7 @@ int main(){
     int testcases;
     cin >> testcases;
 
-    while(testcases != 0){
+    while(testcases--){
         int statements, implications;
         cin >> statements >> implications;
         map<int, vector<int>> graph;
@@ -57,10 +57,10 @@ int main(){
 
         //initializes visited map to false
         //runs DFS to place nodes in postorder
-        for (int i = 0; i < statements; i++) {
+        for (int i = 1; i <= statements; i++) {
             visited[i] = false;
         }
-        for(int i = 0; i < statements; i++){
+        for(int i = 1; i <= statements; i++){
             if(!visited[i]){
                 DFSorder(i, graph, visited, order);
             }
@@ -68,7 +68,7 @@ int main(){
 
         //resets visited map to false
         //orders DFS in decreasing postorder
-        for (int i = 0; i < statements; i++) {
+        for (int i = 1; i <= statements; i++) {
             visited[i] = false;
         }
         vector<vector<int>> sccList;
@@ -88,7 +88,7 @@ int main(){
         int countSCC = sccList.size();
         if(countSCC == 1){
             cout << 0 << "\n";
-            testcases--;
+            continue;
         }
 
         vector<int> in(countSCC, 0);
@@ -104,7 +104,7 @@ int main(){
 
         //traverses through each SCC
         //counts number of outgoing and ingoing edges
-        for(int u = 0; u < statements; u++){
+        for(int u = 1; u <= statements; u++){
             for(int v : graph[u]){
                 int sccU = count[u];
                 int sccV = count[v];
@@ -133,7 +133,6 @@ int main(){
         }else{
             cout << sources << "\n";
         }
-        testcases--;
 
     }
     
